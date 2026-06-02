@@ -1,7 +1,5 @@
 package com.mycompany.app;
 
-// Игра "Крестики-нолики" (поле 3x3)
-// Алгоритм поиска оптимального хода: минимакс с альфа-бета отсечением
 
 import java.awt.*;
 import java.awt.event.*;
@@ -45,7 +43,6 @@ class Board {
             cells[i] = ' ';
     }
 
-    // ─── Проверка состояния ────────────────────────────────────────────────
 
     public GameState checkState(char[] board) {
         // Проверяем, выиграл ли activeSymbol
@@ -71,7 +68,6 @@ class Board {
         return GameState.DRAW;
     }
 
-    // ─── Генерация доступных ходов ─────────────────────────────────────────
 
     void generateMoves(char[] board, ArrayList<Integer> list) {
         for (int i = 0; i < 9; i++)
@@ -79,7 +75,6 @@ class Board {
                 list.add(i);
     }
 
-    // ─── Оценка терминальной позиции ───────────────────────────────────────
 
     int evaluate(char[] board, Participant player) {
         GameState s = checkState(board);
@@ -96,12 +91,7 @@ class Board {
         return -1; // позиция не терминальная
     }
 
-    // ─── Минимакс с альфа-бета отсечением ─────────────────────────────────
 
-    /**
-     * Точка входа: выбирает лучший ход для игрока.
-     * Возвращает номер клетки (1..9).
-     */
     int chooseMove(char[] board, Participant player) {
         int bestScore = -MAX_SCORE;
         int idx = 0;
@@ -140,9 +130,7 @@ class Board {
         return bestMoves[idx];
     }
 
-    /**
-     * Ход противника — минимизирующий игрок (с альфа-бета отсечением).
-     */
+
     int minimize(char[] board, Participant player, int alpha, int beta) {
         int score = evaluate(board, player);
         if (score != -1) return score;
@@ -169,9 +157,7 @@ class Board {
         return minVal;
     }
 
-    /**
-     * Ход нашего игрока — максимизирующий игрок (с альфа-бета отсечением).
-     */
+
     int maximize(char[] board, Participant player, int alpha, int beta) {
         int score = evaluate(board, player);
         if (score != -1) return score;
@@ -199,7 +185,7 @@ class Board {
     }
 }
 
-// ─── Вспомогательный класс для отладочного вывода ─────────────────────────
+
 
 class Printer {
 
@@ -225,7 +211,7 @@ class Printer {
     }
 }
 
-// ─── GUI: одна клетка поля ─────────────────────────────────────────────────
+
 
 class BoardCell extends JButton {
 
@@ -255,7 +241,7 @@ class BoardCell extends JButton {
     public int  getNum()    { return num;    }
 }
 
-// ─── GUI: игровая панель ───────────────────────────────────────────────────
+
 
 class GamePanel extends JPanel implements ActionListener {
 
@@ -327,7 +313,6 @@ class GamePanel extends JPanel implements ActionListener {
     }
 }
 
-// ─── Точка входа ───────────────────────────────────────────────────────────
 
 public class Program {
 
